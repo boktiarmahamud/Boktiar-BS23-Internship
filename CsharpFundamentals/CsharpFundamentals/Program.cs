@@ -7,7 +7,7 @@ namespace CsharpFundamentals
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World");
-            Console.Readline();
+            Console.ReadLine();
         }
     }
 }
