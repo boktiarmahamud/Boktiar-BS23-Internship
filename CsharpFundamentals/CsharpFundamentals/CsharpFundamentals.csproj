@@ -5,7 +5,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>CsharpFundamentals.DataType</StartupObject>
+    <StartupObject>CsharpFundamentals.GenericClass</StartupObject>
   </PropertyGroup>
 
 </Project>
