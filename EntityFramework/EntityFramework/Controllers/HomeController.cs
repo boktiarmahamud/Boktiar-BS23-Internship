@@ -40,9 +40,10 @@ namespace EntityFramework.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            // populate departments for the dropdown
-            ViewBag.DepartmentId = new SelectList(await _context.Departments.ToListAsync(), "DepartmentId", "Name");
-            return View();    
+            //
+            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId");
+            return View();
+             
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -60,7 +61,41 @@ namespace EntityFramework.Controllers
             ViewBag.DepartmentId = new SelectList(await _context.Departments.ToListAsync(), "DepartmentId", "Name", employee.DepartmentId);
             return View(employee);
         }
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employee = await _context.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+            return View(employee);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Employee employee)
+        {
+            if (id != employee.EmployeeId)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Update(employee);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage1"] = "Employee updated successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", employee.DepartmentId);
+            return View(employee);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }

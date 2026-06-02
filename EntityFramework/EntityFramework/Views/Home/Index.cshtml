@@ -11,6 +11,12 @@
             @TempData["SuccessMessage"]
         </div>
     }
+    if(TempData["SuccessMessage1"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage1"]
+        </div>
+    }
 }
 <h1>Index</h1>
 
